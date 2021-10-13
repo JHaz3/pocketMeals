@@ -12,8 +12,11 @@ class MealController {
     // MARK: - Properties
     static private let baseURL = URL(string: "https://www.themealdb.com/api/json/v1/1")
     static private let categoryListEndpoint = "categories.php"
-    static private let mealsInCategoryEndpoint = "filter.php?c="
-    static private let mealDetailEndpoint = "lookup.php?i="
+    static private let mealsInCategoryEndpoint = "filter"
+    static private let mealDetailEndpoint = "lookup"
+    static private let phpExtension = "php"
+    static private let filterKey = "c"
+    static private let mealIDKey = "i"
     
     // MARK: - Category Networking
     static func fetchCategories(completion: @escaping (Result<[Category], MealError>) -> Void) {
@@ -60,12 +63,20 @@ class MealController {
         }.resume()
     }
     
-    // MARK: - Meals Networking
-    static func fetchMealsInCategory(category: [Meals], completion: @escaping (Result<[Meals], MealError>) -> Void) {
+    // MARK: - Meals Filter Networking
+    static func fetchMealsInCategory(category: String, completion: @escaping (Result<[Meals], MealError>) -> Void) {
         guard let baseURL = baseURL else { return completion(.failure(.invalidURL)) }
-        let mealsURL = baseURL.appendingPathComponent(mealsInCategoryEndpoint)
+        let mealsInCategoryURL = baseURL.appendingPathComponent(mealsInCategoryEndpoint)
+        let phpURL = mealsInCategoryURL.appendingPathExtension(phpExtension)
         
-        URLSession.shared.dataTask(with: mealsURL) { data, _, error in
+        var urlComponents = URLComponents(url: phpURL, resolvingAgainstBaseURL: true)
+        urlComponents?.queryItems = [
+            URLQueryItem(name: filterKey, value: category)
+        ]
+        
+        guard let finalURL = urlComponents?.url else { return completion(.failure(.invalidURL)) }
+        print("finalURL = \(finalURL)")
+        URLSession.shared.dataTask(with: finalURL) { data, _, error in
             if let error = error {
                 print(error.localizedDescription)
             }
@@ -98,5 +109,39 @@ class MealController {
             completion(.success(image))
         }.resume()
     }
+    
+    // MARK: - Meal Networking
+    static func fetchMeal(for meal: String, completion: @escaping (Result<[Meal], MealError>) -> Void) {
+        guard let baseURL = baseURL else { return completion(.failure(.invalidURL)) }
+        let mealURL = baseURL.appendingPathComponent(mealDetailEndpoint)
+        let phpURL = mealURL.appendingPathExtension(phpExtension)
+        
+        var urlComponents = URLComponents(url: phpURL, resolvingAgainstBaseURL: true)
+        
+        urlComponents?.queryItems = [
+            URLQueryItem(name: mealIDKey, value: meal)
+        ]
+        
+        guard let finalURL = urlComponents?.url else { return completion(.failure(.invalidURL)) }
+        print("finalURL = \(finalURL)")
+        
+        URLSession.shared.dataTask(with: finalURL) { data, _, error in
+            if let error = error {
+                print(error, error.localizedDescription)
+                return completion(.failure(.noData))
+            }
+            
+            guard let data = data else { return completion(.failure(.noData)) }
+            
+            do {
+                let thirdLevelObject = try JSONDecoder().decode(ThirdLevelObject.self, from: data)
+                return completion(.success(thirdLevelObject.meal))
+            } catch {
+                print(error, error.localizedDescription)
+                return completion(.failure(.thrown(error)))
+            }
+        }.resume()
+    }
+    
     
 }// End of Class

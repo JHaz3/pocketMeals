@@ -19,6 +19,7 @@
 		EB79595227165DF900B8EF79 /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB79595127165DF900B8EF79 /* CategoryTableViewCell.swift */; };
 		EB7959542716769700B8EF79 /* MealsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7959532716769700B8EF79 /* MealsTableViewController.swift */; };
 		EB7959572716770B00B8EF79 /* MealsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7959562716770B00B8EF79 /* MealsTableViewCell.swift */; };
+		EB7959592717606300B8EF79 /* MealDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7959582717606300B8EF79 /* MealDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		EB79595127165DF900B8EF79 /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableViewCell.swift; sourceTree = "<group>"; };
 		EB7959532716769700B8EF79 /* MealsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealsTableViewController.swift; sourceTree = "<group>"; };
 		EB7959562716770B00B8EF79 /* MealsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealsTableViewCell.swift; sourceTree = "<group>"; };
+		EB7959582717606300B8EF79 /* MealDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +138,7 @@
 			children = (
 				EB79594D27165C4200B8EF79 /* CategoryTableViewController.swift */,
 				EB7959532716769700B8EF79 /* MealsTableViewController.swift */,
+				EB7959582717606300B8EF79 /* MealDetailViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -236,6 +239,7 @@
 				EB7959572716770B00B8EF79 /* MealsTableViewCell.swift in Sources */,
 				EB79595227165DF900B8EF79 /* CategoryTableViewCell.swift in Sources */,
 				EB79592A2716386000B8EF79 /* SceneDelegate.swift in Sources */,
+				EB7959592717606300B8EF79 /* MealDetailViewController.swift in Sources */,
 				EB79594E27165C4200B8EF79 /* CategoryTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

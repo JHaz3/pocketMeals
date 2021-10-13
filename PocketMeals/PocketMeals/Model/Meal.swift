@@ -40,17 +40,25 @@ struct Meals: Decodable {
         
         
     }
+}
+
+struct ThirdLevelObject: Decodable {
+    let meal: [Meal]
     
+    enum CodingKeys: String, CodingKey {
+        case meal = "meals" }
+}
+
     struct Meal: Decodable {
         let name: String
         let instructions: String
-        //let mealImage: String
+        let mealID: String
+        let mealImage: String
         
         enum CodingKeys: String, CodingKey {
             case name = "strMeal"
             case instructions = "strInstructions"
-            //case mealImage = "strMealThumb"
+            case mealID = "idMeal"
+            case mealImage = "strMealThumb"
         }
     }
-    
-}

@@ -23,7 +23,10 @@ class MealsTableViewCell: UITableViewCell {
             MealController.fetchMealsImage(for: meal) { result in
                 switch result {
                 case .success(let image):
-                    DispatchQueue.main.async { self.mealsImage.image = image }
+                    DispatchQueue.main.async {
+                        self.mealsImage.image = image
+                        self.mealsImage.layer.cornerRadius = 10 
+                    }
                 case .failure(let error):
                     print(error, error.localizedDescription)
                 }

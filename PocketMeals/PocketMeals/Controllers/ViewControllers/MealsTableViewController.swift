@@ -11,20 +11,12 @@ class MealsTableViewController: UITableViewController {
     
     // MARK: - Properties
     var meals: [Meals] = []
+    var category: Category?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        MealController.fetchMealsInCategory(category: meals) { result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let meals):
-                    self.meals = meals
-                    self.tableView.reloadData()
-                case .failure(let error):
-                    print(error,error.localizedDescription)
-                }
-            }
-        }
+        configureViews()
+        tableView.reloadData()
     }
     
     // MARK: - Table view data source
@@ -42,14 +34,32 @@ class MealsTableViewController: UITableViewController {
         return cell
     }
     
-    /*
+    func configureViews() {
+        guard let category = category else { return }
+        
+        MealController.fetchMealsInCategory(category: category.name ) { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let meals):
+                    self.meals = meals
+                    self.tableView.reloadData()
+                case .failure(let error):
+                    print(error,error.localizedDescription)
+                }
+            }
+        }
+    }
      // MARK: - Navigation
      
      // In a storyboard-based application, you will often want to do a little preparation before navigation
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
+         if segue.identifier == "showMeal" {
+             guard let index = tableView.indexPathForSelectedRow,
+                   let destination = segue.destination as? MealDetailViewController else { return }
+             let meal = self.meals[index.row]
+             destination.meals = meal
+         }
      }
-     */
     
-}
+    
+}// End of Class

@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// <#Description#>
 class CategoryTableViewController: UITableViewController {
     
     // MARK: - Properties
@@ -44,11 +45,17 @@ class CategoryTableViewController: UITableViewController {
         
         return cell
     }
+    
 
     // MARK: - Navigation
-
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == ""
-//    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showCategory" {
+            guard let index = tableView.indexPathForSelectedRow,
+                  let destination = segue.destination as? MealsTableViewController else { return }
+            
+            let category = self.categories[index.row]
+            destination.category = category
+        }
+    }
 
 }// End of Class
