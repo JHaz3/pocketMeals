@@ -22,7 +22,7 @@ class CategoryTableViewController: UITableViewController {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let categories):
-                    self.categories = categories
+                    self.categories = categories.sorted(by: { $0.name < $1.name })
                     self.tableView.reloadData()
                 case .failure(let error):
                     print(error.localizedDescription)

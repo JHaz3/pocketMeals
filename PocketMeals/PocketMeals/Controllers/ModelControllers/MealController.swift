@@ -143,5 +143,21 @@ class MealController {
         }.resume()
     }
     
-    
+    static func fetchMealImage(for meal: Meal, completion: @escaping (Result<UIImage, MealError>) -> Void) {
+        guard let mealThumbnail = URL(string: meal.mealImage) else { return completion(.failure(.noData)) }
+        
+        URLSession.shared.dataTask(with: mealThumbnail) { data, _, error in
+            if let error = error {
+                return completion(.failure(.thrown(error)))
+            }
+            guard let data = data else {
+                return completion(.failure(.noData))
+            }
+            guard let image = UIImage(data: data) else {
+                return completion(.failure(.noData))
+            }
+            completion(.success(image))
+        }.resume()
+    }
+
 }// End of Class

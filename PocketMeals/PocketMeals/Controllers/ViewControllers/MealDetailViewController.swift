@@ -12,6 +12,7 @@ class MealDetailViewController: UIViewController {
     // MARK: - Outlets
     @IBOutlet weak var mealNameLabel: UILabel!
     @IBOutlet weak var mealInstructionsTextView: UITextView!
+    @IBOutlet weak var mealImage: UIImageView!
     
     
     // MARK: - Properties
@@ -23,6 +24,18 @@ class MealDetailViewController: UIViewController {
             mealNameLabel.text = mealToDisplay.name
             mealInstructionsTextView.text = mealToDisplay.instructions
             mealInstructionsTextView.isEditable = false
+            MealController.fetchMealImage(for: mealToDisplay) { result in
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(let image):
+                        self.mealImage.image = image
+                        self.mealImage.layer.cornerRadius = 20
+                        
+                    case .failure(let error):
+                        print(error, error.localizedDescription)
+                    }
+                }
+            }
         }
     }
     

@@ -41,7 +41,7 @@ class MealsTableViewController: UITableViewController {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let meals):
-                    self.meals = meals
+                    self.meals = meals.sorted(by: { $0.name < $1.name })
                     self.tableView.reloadData()
                 case .failure(let error):
                     print(error,error.localizedDescription)
@@ -60,6 +60,5 @@ class MealsTableViewController: UITableViewController {
              destination.meals = meal
          }
      }
-    
     
 }// End of Class
