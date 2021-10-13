@@ -31,12 +31,12 @@ struct SecondLevelObject: Decodable {
 struct Meals: Decodable {
     let name: String
     let mealID: String
-   //let mealImage: String
+    let mealsImage: String
     
     enum CodingKeys: String, CodingKey {
         case name = "strMeal"
         case mealID = "idMeal"
-        //case mealImage = "strMealThumb"
+        case mealsImage = "strMealThumb"
         
         
     }

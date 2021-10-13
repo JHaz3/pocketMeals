@@ -15,6 +15,7 @@ class MealController {
     static private let mealsInCategoryEndpoint = "filter.php?c="
     static private let mealDetailEndpoint = "lookup.php?i="
     
+    // MARK: - Category Networking
     static func fetchCategories(completion: @escaping (Result<[Category], MealError>) -> Void) {
         guard let baseURL = baseURL else { return completion(.failure(.invalidURL)) }
         let categoriesURL = baseURL.appendingPathComponent(categoryListEndpoint)
@@ -46,6 +47,45 @@ class MealController {
         guard let categoryThumbnail = URL(string: category.categoryThumbnail) else { return completion(.failure(.noData)) }
         
         URLSession.shared.dataTask(with: categoryThumbnail) { data, _, error in
+            if let error = error {
+                return completion(.failure(.thrown(error)))
+            }
+            guard let data = data else {
+                return completion(.failure(.noData))
+            }
+            guard let image = UIImage(data: data) else {
+                return completion(.failure(.noData))
+            }
+            completion(.success(image))
+        }.resume()
+    }
+    
+    // MARK: - Meals Networking
+    static func fetchMealsInCategory(category: [Meals], completion: @escaping (Result<[Meals], MealError>) -> Void) {
+        guard let baseURL = baseURL else { return completion(.failure(.invalidURL)) }
+        let mealsURL = baseURL.appendingPathComponent(mealsInCategoryEndpoint)
+        
+        URLSession.shared.dataTask(with: mealsURL) { data, _, error in
+            if let error = error {
+                print(error.localizedDescription)
+            }
+            
+            guard let data = data else { return completion(.failure(.badData)) }
+            
+            do {
+                let secondLevelObject = try JSONDecoder().decode(SecondLevelObject.self, from: data)
+                completion(.success(secondLevelObject.meals))
+            } catch {
+                print(error, error.localizedDescription)
+                return completion(.failure(.thrown(error)))
+            }
+        }.resume()
+    }
+    
+    static func fetchMealsImage(for meal: Meals, completion: @escaping (Result<UIImage, MealError>) -> Void) {
+        guard let mealsThumbnail = URL(string: meal.mealsImage) else { return completion(.failure(.noData)) }
+        
+        URLSession.shared.dataTask(with: mealsThumbnail) { data, _, error in
             if let error = error {
                 return completion(.failure(.thrown(error)))
             }

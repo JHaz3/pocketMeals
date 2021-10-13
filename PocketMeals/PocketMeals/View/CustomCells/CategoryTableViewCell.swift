@@ -14,8 +14,6 @@ class CategoryTableViewCell: UITableViewCell {
     @IBOutlet weak var categoryNameLabel: UILabel!
     
     
-    
-    
     var category: Category? {
         
         didSet {
@@ -32,5 +30,4 @@ class CategoryTableViewCell: UITableViewCell {
             }
         }
     }
-
 }
