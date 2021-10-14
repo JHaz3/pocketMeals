@@ -8,10 +8,10 @@
 import Foundation
 
 enum MealError: LocalizedError {
-case thrown(Error)
-case invalidURL
-case noData
-case badData
+    case thrown(Error)
+    case invalidURL
+    case noData
+    case badData
     var errorDescription: String? {
         switch self {
         case .thrown(let error):

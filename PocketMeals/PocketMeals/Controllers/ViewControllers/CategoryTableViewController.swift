@@ -16,7 +16,7 @@ class CategoryTableViewController: UITableViewController {
         super.viewDidLoad()
         configureViews()
     }
-
+    
     private func configureViews() {
         view.backgroundColor = .systemBackground
         NetworkController.fetchCategories() { [weak self] result in
@@ -38,10 +38,10 @@ class CategoryTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return categories.count
     }
-
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-       guard let cell = tableView.dequeueReusableCell(withIdentifier: "categoryCell", for: indexPath) as?
-        CategoryTableViewCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "categoryCell", for: indexPath) as?
+                CategoryTableViewCell else { return UITableViewCell() }
         let category = categories[indexPath.row]
         cell.category = category
         

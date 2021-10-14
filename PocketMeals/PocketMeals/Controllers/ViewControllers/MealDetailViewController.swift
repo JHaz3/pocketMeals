@@ -36,7 +36,7 @@ class MealDetailViewController: UIViewController {
                     self.tableView.reloadData()
                 }
                 self.meal = meal
-
+                
                 NetworkController.fetchImage(forThumb: meal.mealThumb) { result in
                     DispatchQueue.main.async {
                         switch result {
