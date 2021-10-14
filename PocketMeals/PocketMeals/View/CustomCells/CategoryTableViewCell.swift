@@ -8,8 +8,8 @@
 import UIKit
 
 class CategoryTableViewCell: UITableViewCell {
-
-// MARK: - Outlets
+    
+    // MARK: - Outlets
     @IBOutlet weak var categoryImage: UIImageView!
     @IBOutlet weak var categoryNameLabel: UILabel!
     

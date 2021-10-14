@@ -53,13 +53,13 @@ class MealsTableViewController: UITableViewController {
         return cell
     }
     
-     // MARK: - Navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-         if segue.identifier == "showMeal" {
-             guard let index = tableView.indexPathForSelectedRow,
-                   let destination = segue.destination as? MealDetailViewController else { return }
-             let meal = self.meals[index.row]
-             destination.mealId = meal.id
-         }
-     }
+    // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showMeal" {
+            guard let index = tableView.indexPathForSelectedRow,
+                  let destination = segue.destination as? MealDetailViewController else { return }
+            let meal = self.meals[index.row]
+            destination.mealId = meal.id
+        }
+    }
 }// End of Class
