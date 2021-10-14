@@ -19,6 +19,23 @@ class MealsTableViewController: UITableViewController {
         tableView.reloadData()
     }
     
+    private func configureViews() {
+        guard let category = category else { return }
+        
+        NetworkController.fetchMealsInCategory(category: category.name ) { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let meals):
+                    self.meals = meals.sorted(by: { $0.name < $1.name })
+                    self.title = category.name
+                    self.tableView.reloadData()
+                case .failure(let error):
+                    print(error,error.localizedDescription)
+                }
+            }
+        }
+    }
+    
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
@@ -34,21 +51,6 @@ class MealsTableViewController: UITableViewController {
         return cell
     }
     
-    func configureViews() {
-        guard let category = category else { return }
-        
-        NetworkController.fetchMealsInCategory(category: category.name ) { result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let meals):
-                    self.meals = meals.sorted(by: { $0.name < $1.name })
-                    self.tableView.reloadData()
-                case .failure(let error):
-                    print(error,error.localizedDescription)
-                }
-            }
-        }
-    }
      // MARK: - Navigation
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
          if segue.identifier == "showMeal" {

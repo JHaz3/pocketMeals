@@ -13,19 +13,20 @@ class MealDetailViewController: UIViewController {
     @IBOutlet weak var mealImage: UIImageView!
     @IBOutlet weak var tableView: UITableView!
     
-    
     // MARK: - Properties
     var mealId: String = ""
     var meal: MealDetail?
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 600
+        updateViews()
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        configureViews()
+    }
+    
+    private func configureViews() {
         NetworkController.fetchMeal(for: mealId) { result in
             switch result {
             case .success(let meal):
@@ -39,10 +40,7 @@ class MealDetailViewController: UIViewController {
                     DispatchQueue.main.async {
                         switch result {
                         case .success(let image):
-                            DispatchQueue.main.async {
-                                self.mealImage.image = image
-                                self.mealImage.layer.cornerRadius = 20
-                            }
+                            DispatchQueue.main.async { self.mealImage.image = image }
                         case .failure(let error):
                             print(error, error.localizedDescription)
                         }
@@ -53,6 +51,13 @@ class MealDetailViewController: UIViewController {
                 self.navigationController?.popViewController(animated: true)
             }
         }
+    }
+    
+    private func updateViews() {
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 600
     }
     
 }// End of Class

@@ -121,7 +121,7 @@ class NetworkController {
                     print(json)
                     guard let jsonMeal = json["meals"]?[0] as? [String : Any],
                           let meal = MealDetail.decode(from: jsonMeal) else {
-                        return completion(.failure(.badData))}
+                              return completion(.failure(.badData))}
                     return completion(.success(meal))
                 } else {
                     return completion(.failure(.badData))
