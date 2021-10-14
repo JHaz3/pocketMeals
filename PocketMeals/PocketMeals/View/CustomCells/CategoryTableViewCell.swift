@@ -14,23 +14,24 @@ class CategoryTableViewCell: UITableViewCell {
     @IBOutlet weak var categoryNameLabel: UILabel!
     
     
-    
-    
     var category: Category? {
         
         didSet {
             guard let category = category else { return }
             categoryNameLabel.text = category.name
             
-            MealController.fetchCategoryImage(for: category) { result in
+            NetworkController.fetchImage(forThumb: category.categoryThumbnail) { [weak self] result in
+                guard let self = self else { return }
                 switch result {
                 case .success(let image):
-                    DispatchQueue.main.async { self.categoryImage.image = image }
+                    DispatchQueue.main.async {
+                        self.categoryImage.image = image
+                        self.categoryImage.layer.cornerRadius = 50
+                    }
                 case .failure(let error):
                     print("Error in \(#function) : \(error.localizedDescription) \n---/n \(error)")
                 }
             }
         }
     }
-
 }
