@@ -30,7 +30,6 @@ class MealDetailViewController: UIViewController {
                     case .success(let image):
                         self.mealImage.image = image
                         self.mealImage.layer.cornerRadius = 20
-                        
                     case .failure(let error):
                         print(error, error.localizedDescription)
                     }
@@ -58,7 +57,19 @@ class MealDetailViewController: UIViewController {
                 case .failure(let error):
                     print(error, error.localizedDescription)
                 }
+//                var ingredients: [(ing: String, meas: String)] {
+//                    
+//                    var ingredients = [mealToDisplay.strIngredient1...]
+//                    var measurements = [mealToDisplay.strMeasurement1...]
+//                    for (index, ingredient) in ingredients.enumerated() {
+//                        if let ingredient = ingredient, let measurement = measurements[safe: index] {
+//                        
+//                        }
+//                    }
+//                }
             }
         }
     }
-}
+
+}// End of Class
+
