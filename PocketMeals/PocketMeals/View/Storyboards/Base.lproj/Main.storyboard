@@ -129,7 +129,7 @@
                                 <connections>
                                     <outlet property="mealsImage" destination="1vf-XI-mfA" id="Bb8-Rh-vyL"/>
                                     <outlet property="mealsNameLabel" destination="hFc-bv-QUM" id="7gX-hC-hmB"/>
-                                    <segue destination="0CM-Y9-HuE" kind="show" identifier="showMeal" id="FsO-Ur-2BC"/>
+                                    <segue destination="1qw-4E-VNg" kind="show" identifier="showMeal" id="79G-p4-X5F"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -145,63 +145,59 @@
             <point key="canvasLocation" x="1418.840579710145" y="42.857142857142854"/>
         </scene>
         <!--Meal Detail View Controller-->
-        <scene sceneID="sOM-xx-vQJ">
+        <scene sceneID="d6T-lK-0u3">
             <objects>
-                <viewController id="0CM-Y9-HuE" customClass="MealDetailViewController" customModule="PocketMeals" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="O5x-Lm-yxt">
+                <viewController id="1qw-4E-VNg" customClass="MealDetailViewController" customModule="PocketMeals" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="BWS-MC-ORD">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="1Po-yN-5oF">
-                                <rect key="frame" x="87" y="260" width="240" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                <color key="textColor" systemColor="labelColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dEV-v2-d6X">
-                                <rect key="frame" x="186" y="44" width="48" height="73"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="uzY-1I-OsT">
-                                <rect key="frame" x="87" y="418" width="237" height="149"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                <color key="textColor" systemColor="labelColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t6W-HT-IJC">
-                                <rect key="frame" x="87" y="124" width="240" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ywt-sc-F7K">
+                                <rect key="frame" x="123" y="93" width="168" height="89.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Ywt-sc-F7K" secondAttribute="height" multiplier="15:8" id="eKD-37-irJ"/>
+                                </constraints>
                             </imageView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="o23-2W-CVl">
+                                <rect key="frame" x="0.0" y="192.5" width="414" height="669.5"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="5g2-eW-PIh">
+                                        <rect key="frame" x="0.0" y="44.5" width="414" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5g2-eW-PIh" id="jYm-tu-lR7">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="haz-WH-mvk"/>
+                        <viewLayoutGuide key="safeArea" id="ReE-bI-oAC"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="ReE-bI-oAC" firstAttribute="bottom" secondItem="o23-2W-CVl" secondAttribute="bottom" id="4aT-Vj-rrw"/>
+                            <constraint firstItem="Ywt-sc-F7K" firstAttribute="top" secondItem="ReE-bI-oAC" secondAttribute="top" constant="5" id="9N4-59-GBT"/>
+                            <constraint firstItem="Ywt-sc-F7K" firstAttribute="height" secondItem="BWS-MC-ORD" secondAttribute="height" multiplier="0.1" id="ZG6-bT-hOq"/>
+                            <constraint firstItem="o23-2W-CVl" firstAttribute="leading" secondItem="ReE-bI-oAC" secondAttribute="leading" id="kqE-96-dvF"/>
+                            <constraint firstItem="ReE-bI-oAC" firstAttribute="trailing" secondItem="o23-2W-CVl" secondAttribute="trailing" id="oIj-eA-Yk2"/>
+                            <constraint firstItem="o23-2W-CVl" firstAttribute="top" secondItem="Ywt-sc-F7K" secondAttribute="bottom" constant="10" id="rL6-vq-3ic"/>
+                            <constraint firstItem="Ywt-sc-F7K" firstAttribute="centerX" secondItem="ReE-bI-oAC" secondAttribute="centerX" id="xjm-PB-QpW"/>
+                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="dmF-sD-zpZ"/>
+                    <navigationItem key="navigationItem" id="eKM-2d-cbq"/>
                     <connections>
-                        <outlet property="mealImage" destination="t6W-HT-IJC" id="dql-Ku-qJ4"/>
-                        <outlet property="mealInstructionsTextView" destination="1Po-yN-5oF" id="toL-ps-Sfp"/>
-                        <outlet property="mealNameLabel" destination="dEV-v2-d6X" id="tol-tO-x8f"/>
+                        <outlet property="mealImage" destination="Ywt-sc-F7K" id="Vjr-Ho-tNg"/>
+                        <outlet property="tableView" destination="o23-2W-CVl" id="tnX-Th-zrV"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="xAP-8S-VGK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ixf-06-SOD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2213.04347826087" y="42.857142857142854"/>
+            <point key="canvasLocation" x="2252" y="43"/>
         </scene>
     </scenes>
     <resources>
         <image name="rays" catalog="system" width="128" height="122"/>
-        <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

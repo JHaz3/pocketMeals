@@ -10,7 +10,7 @@ import UIKit
 class MealsTableViewController: UITableViewController {
     
     // MARK: - Properties
-    var meals: [Meals] = []
+    var meals: [Meal] = []
     var category: Category?
     
     override func viewDidLoad() {
@@ -29,7 +29,7 @@ class MealsTableViewController: UITableViewController {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "mealsCell", for: indexPath) as?
                 MealsTableViewCell else { return UITableViewCell() }
         let meal = meals[indexPath.row]
-        cell.meals = meal
+        cell.meal = meal
         
         return cell
     }
@@ -37,7 +37,7 @@ class MealsTableViewController: UITableViewController {
     func configureViews() {
         guard let category = category else { return }
         
-        MealController.fetchMealsInCategory(category: category.name ) { result in
+        NetworkController.fetchMealsInCategory(category: category.name ) { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let meals):
@@ -55,7 +55,7 @@ class MealsTableViewController: UITableViewController {
              guard let index = tableView.indexPathForSelectedRow,
                    let destination = segue.destination as? MealDetailViewController else { return }
              let meal = self.meals[index.row]
-             destination.meals = meal
+             destination.mealId = meal.id
          }
      }
     

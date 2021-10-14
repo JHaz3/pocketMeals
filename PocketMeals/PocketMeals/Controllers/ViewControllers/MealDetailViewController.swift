@@ -8,68 +8,72 @@
 import UIKit
 
 class MealDetailViewController: UIViewController {
-
+    
     // MARK: - Outlets
-    @IBOutlet weak var mealNameLabel: UILabel!
-    @IBOutlet weak var mealInstructionsTextView: UITextView!
     @IBOutlet weak var mealImage: UIImageView!
+    @IBOutlet weak var tableView: UITableView!
     
     
     // MARK: - Properties
-    var meals: Meals?
-    var meal: [Meal?] = []
-    var mealToDisplay: Meal? {
-        didSet {
-            guard let mealToDisplay = mealToDisplay else { return }
-            mealNameLabel.text = mealToDisplay.name
-            mealInstructionsTextView.text = mealToDisplay.instructions
-            mealInstructionsTextView.isEditable = false
-            MealController.fetchMealImage(for: mealToDisplay) { result in
-                DispatchQueue.main.async {
-                    switch result {
-                    case .success(let image):
-                        self.mealImage.image = image
-                        self.mealImage.layer.cornerRadius = 20
-                    case .failure(let error):
-                        print(error, error.localizedDescription)
-                    }
-                }
-            }
-        }
-    }
-    
-    
+    var mealId: String = ""
+    var meal: MealDetail?
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureViews()
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 600
     }
     
-    
-    func configureViews() {
-        guard let meal = meals?.mealID else { return }
-        
-        MealController.fetchMeal(for: meal) { result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let meal):
-                    self.meal = meal
-                    self.mealToDisplay = meal[0]
-                case .failure(let error):
-                    print(error, error.localizedDescription)
+    override func viewDidAppear(_ animated: Bool) {
+        NetworkController.fetchMeal(for: mealId) { result in
+            switch result {
+            case .success(let meal):
+                DispatchQueue.main.async {
+                    self.title = meal.name
+                    self.tableView.reloadData()
                 }
-//                var ingredients: [(ing: String, meas: String)] {
-//                    
-//                    var ingredients = [mealToDisplay.strIngredient1...]
-//                    var measurements = [mealToDisplay.strMeasurement1...]
-//                    for (index, ingredient) in ingredients.enumerated() {
-//                        if let ingredient = ingredient, let measurement = measurements[safe: index] {
-//                        
-//                        }
-//                    }
-//                }
+                self.meal = meal
+                
+                NetworkController.fetchImage(forThumb: meal.mealThumb) { result in
+                    DispatchQueue.main.async {
+                        switch result {
+                        case .success(let image):
+                            DispatchQueue.main.async {
+                                self.mealImage.image = image
+                                self.mealImage.layer.cornerRadius = 20
+                            }
+                        case .failure(let error):
+                            print(error, error.localizedDescription)
+                        }
+                    }
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+                self.navigationController?.popViewController(animated: true)
             }
         }
     }
-
+    
 }// End of Class
 
+extension MealDetailViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return (meal?.ingredients.count ?? 0) + 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        cell.textLabel?.numberOfLines = 0
+        
+        switch indexPath.row {
+        case meal?.ingredients.count ?? 0:
+            cell.textLabel?.text = meal?.instructions
+        default:
+            let ingredient = meal?.ingredients[indexPath.row]
+            cell.textLabel?.text = "\(ingredient?.ingredient ?? "") -> \(ingredient?.measurement ?? "")"
+        }
+        
+        return cell
+    }
+}

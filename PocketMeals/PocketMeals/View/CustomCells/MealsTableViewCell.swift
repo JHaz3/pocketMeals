@@ -14,18 +14,17 @@ class MealsTableViewCell: UITableViewCell {
     @IBOutlet weak var mealsNameLabel: UILabel!
     
     
-    var meals: Meals? {
+    var meal: Meal? {
         
         didSet {
-            guard let meal = meals else { return }
+            guard let meal = meal else { return }
             mealsNameLabel.text = meal.name
-            
-            MealController.fetchMealsImage(for: meal) { result in
+            NetworkController.fetchImage(forThumb: meal.imageThumb) { result in
                 switch result {
                 case .success(let image):
                     DispatchQueue.main.async {
                         self.mealsImage.image = image
-                        self.mealsImage.layer.cornerRadius = 10 
+                        self.mealsImage.layer.cornerRadius = 10
                     }
                 case .failure(let error):
                     print(error, error.localizedDescription)

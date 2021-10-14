@@ -7,7 +7,6 @@
 
 import UIKit
 
-/// <#Description#>
 class CategoryTableViewController: UITableViewController {
     
     // MARK: - Properties
@@ -18,7 +17,7 @@ class CategoryTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        MealController.fetchCategories() { result in
+        NetworkController.fetchCategories() { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let categories):

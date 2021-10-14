@@ -20,7 +20,7 @@ class CategoryTableViewCell: UITableViewCell {
             guard let category = category else { return }
             categoryNameLabel.text = category.name
             
-            MealController.fetchCategoryImage(for: category) { [weak self] result in
+            NetworkController.fetchImage(forThumb: category.categoryThumbnail) { [weak self] result in
                 guard let self = self else { return }
                 switch result {
                 case .success(let image):
