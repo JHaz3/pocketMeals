@@ -12,14 +12,15 @@ class CategoryTableViewController: UITableViewController {
     // MARK: - Properties
     var categories: [Category] = []
     
-    // MARK: - Outlets
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViews()
     }
 
     private func configureViews() {
-        NetworkController.fetchCategories() { result in
+        view.backgroundColor = .systemBackground
+        NetworkController.fetchCategories() { [weak self] result in
+            guard let self = self else { return }
             DispatchQueue.main.async {
                 switch result {
                 case .success(let categories):
@@ -35,7 +36,6 @@ class CategoryTableViewController: UITableViewController {
     
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         return categories.count
     }
 

@@ -27,7 +27,8 @@ class MealDetailViewController: UIViewController {
     }
     
     private func configureViews() {
-        NetworkController.fetchMeal(for: mealId) { result in
+        NetworkController.fetchMeal(for: mealId) { [weak self] result in
+            guard let self = self else { return }
             switch result {
             case .success(let meal):
                 DispatchQueue.main.async {
@@ -35,7 +36,7 @@ class MealDetailViewController: UIViewController {
                     self.tableView.reloadData()
                 }
                 self.meal = meal
-                
+
                 NetworkController.fetchImage(forThumb: meal.mealThumb) { result in
                     DispatchQueue.main.async {
                         switch result {
@@ -54,31 +55,33 @@ class MealDetailViewController: UIViewController {
     }
     
     private func updateViews() {
+        view.backgroundColor = .systemBackground
         tableView.delegate = self
         tableView.dataSource = self
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 600
+        tableView.estimatedRowHeight = 500
     }
     
 }// End of Class
 
 extension MealDetailViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // We need an extra row for our Directions
         return (meal?.ingredients.count ?? 0) + 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "mealDetailCell", for: indexPath)
+        // Allowing our text to wrap
         cell.textLabel?.numberOfLines = 0
-        
+        // Making sure that our Ingredients and Measurements are always above the directions
         switch indexPath.row {
         case meal?.ingredients.count ?? 0:
             cell.textLabel?.text = meal?.instructions
         default:
             let ingredient = meal?.ingredients[indexPath.row]
-            cell.textLabel?.text = "\(ingredient?.ingredient ?? "") -> \(ingredient?.measurement ?? "")"
+            cell.textLabel?.text = "\(ingredient?.ingredient ?? ""): \(ingredient?.measurement ?? "")"
         }
-        
         return cell
     }
 }

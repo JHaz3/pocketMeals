@@ -67,7 +67,7 @@ class NetworkController {
         ]
         
         guard let finalURL = urlComponents?.url else { return completion(.failure(.invalidURL)) }
-        print("finalURL = \(finalURL)")
+        
         URLSession.shared.dataTask(with: finalURL) { data, _, error in
             if let error = error {
                 print(error.localizedDescription)
@@ -133,6 +133,7 @@ class NetworkController {
         }.resume()
     }
     
+    // MARK: - Image Networking
     static func fetchImage(forThumb thumb: String, completion: @escaping (Result<UIImage, MealError>) -> Void) {
         guard let mealsThumbnail = URL(string: thumb) else { return completion(.failure(.noData)) }
         

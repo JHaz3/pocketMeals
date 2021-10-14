@@ -20,9 +20,11 @@ class MealsTableViewController: UITableViewController {
     }
     
     private func configureViews() {
+        view.backgroundColor = .systemBackground
         guard let category = category else { return }
         
-        NetworkController.fetchMealsInCategory(category: category.name ) { result in
+        NetworkController.fetchMealsInCategory(category: category.name ) { [weak self] result in
+            guard let self = self else { return }
             DispatchQueue.main.async {
                 switch result {
                 case .success(let meals):
@@ -60,5 +62,4 @@ class MealsTableViewController: UITableViewController {
              destination.mealId = meal.id
          }
      }
-    
 }// End of Class
