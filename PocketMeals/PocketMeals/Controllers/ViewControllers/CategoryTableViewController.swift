@@ -12,16 +12,20 @@ class CategoryTableViewController: UITableViewController {
     // MARK: - Properties
     var categories: [Category] = []
     
-    // MARK: - Outlets
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        NetworkController.fetchCategories() { result in
+        configureViews()
+    }
+
+    private func configureViews() {
+        view.backgroundColor = .systemBackground
+        NetworkController.fetchCategories() { [weak self] result in
+            guard let self = self else { return }
             DispatchQueue.main.async {
                 switch result {
                 case .success(let categories):
                     self.categories = categories.sorted(by: { $0.name < $1.name })
+                    self.title = "Categories"
                     self.tableView.reloadData()
                 case .failure(let error):
                     print(error.localizedDescription)
@@ -29,10 +33,9 @@ class CategoryTableViewController: UITableViewController {
             }
         }
     }
-
+    
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         return categories.count
     }
 
@@ -45,16 +48,13 @@ class CategoryTableViewController: UITableViewController {
         return cell
     }
     
-
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showCategory" {
             guard let index = tableView.indexPathForSelectedRow,
                   let destination = segue.destination as? MealsTableViewController else { return }
-            
             let category = self.categories[index.row]
             destination.category = category
         }
     }
-
 }// End of Class

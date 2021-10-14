@@ -12,7 +12,6 @@ case thrown(Error)
 case invalidURL
 case noData
 case badData
-case unableToDelete
     var errorDescription: String? {
         switch self {
         case .thrown(let error):
@@ -23,8 +22,6 @@ case unableToDelete
             return "Server responded with no data."
         case .badData:
             return "Server responded with bad data."
-        case .unableToDelete:
-            return "Unable to delete at this time, try again."
         }
     }
 }

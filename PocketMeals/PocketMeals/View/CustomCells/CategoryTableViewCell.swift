@@ -26,7 +26,7 @@ class CategoryTableViewCell: UITableViewCell {
                 case .success(let image):
                     DispatchQueue.main.async {
                         self.categoryImage.image = image
-                        self.categoryImage.layer.cornerRadius = 50
+                        self.categoryImage.layer.cornerRadius = 30
                     }
                 case .failure(let error):
                     print("Error in \(#function) : \(error.localizedDescription) \n---/n \(error)")
